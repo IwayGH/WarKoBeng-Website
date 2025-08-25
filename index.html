@@ -3,15 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="WarKoBeng - Warung Kopi Bengkel, tempat nongkrong, ngopi, ngobrol, karaoke dan bengkel motor terpercaya di Cikampek"
+    />
+    <meta
+      name="keywords"
+      content="Warung Kopi, Bengkel Motor, Cikampek, Karaoke, Ngopi"
+    />
+    <meta name="author" content="WTNT Catering" />
     <title>WarKoBeng - Warung Kopi Bengkel</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ["Inter", "sans-serif"],
+              sans: ["Poppins", "sans-serif"],
+              display: ["Playfair Display", "serif"],
             },
             colors: {
               primary: "#3b82f6", // Biru
@@ -22,120 +51,404 @@
               instagram: "#E1306C", // Warna merah muda Instagram
               email: "#D9534F", // Warna merah untuk email
             },
+            animation: {
+              float: "float 6s ease-in-out infinite",
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+            },
           },
         },
       };
     </script>
+
     <style>
+      :root {
+        --primary: #3b82f6;
+        --secondary: #f97316;
+        --dark: #1f2937;
+        --dark-light: #374151;
+      }
+
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #f3f4f6;
         color: #1f2937;
         scroll-behavior: smooth;
+        overflow-x: hidden;
       }
+
       .hero-section {
-        /* Updated hero image with a NEW external URL as the previous one didn't load */
-        background-image: url("KoBeng Lokasi.png");
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+          ),
+          url("https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
+        position: relative;
       }
-      .overlay {
-        background-color: rgba(0, 0, 0, 0.6);
-      }
+
       .section-title {
         position: relative;
         display: inline-block;
         padding-bottom: 0.5rem;
+        font-family: "Playfair Display", serif;
       }
+
       .section-title::after {
         content: "";
         position: absolute;
         bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--secondary);
+        border-radius: 9999px;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--secondary) 0%, #ff9558 100%);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
         left: 0;
         width: 100%;
-        height: 4px;
-        background-color: #f97316;
-        border-radius: 9999px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: -1;
+      }
+
+      .btn-primary:hover::before {
+        transform: translateX(0);
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--secondary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-to-top.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .back-to-top:hover {
+        background: #ff9558;
+        transform: translateY(-5px);
+      }
+
+      .dark-mode-toggle {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 999;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .dark-mode-toggle:hover {
+        background: #2563eb;
+        transform: rotate(30deg);
+      }
+
+      .dark-mode {
+        background-color: #111827;
+        color: #f9fafb;
+      }
+
+      .dark-mode .bg-dark {
+        background-color: #111827;
+      }
+
+      .dark-mode .bg-dark-light {
+        background-color: #1f2937;
+      }
+
+      .dark-mode .text-gray-300 {
+        color: #d1d5db;
+      }
+
+      .dark-mode .text-white {
+        color: #f9fafb;
+      }
+
+      .dark-mode .border-gray-600 {
+        border-color: #4b5563;
+      }
+
+      .dark-mode .shadow-lg {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+          0 4px 6px -2px rgba(0, 0, 0, 0.3);
+      }
+
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader-circle {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid var(--secondary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .form-input {
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus {
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+      }
+
+      .social-icon {
+        transition: all 0.3s ease;
+      }
+
+      .social-icon:hover {
+        transform: translateY(-5px);
+      }
+
+      .menu-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .menu-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--secondary), var(--primary));
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+      }
+
+      .menu-card:hover::before {
+        transform: translateX(0);
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-icon {
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-icon {
+        transform: scale(1);
+      }
+
+      @media (max-width: 768px) {
+        .hero-section {
+          background-attachment: scroll;
+        }
       }
     </style>
   </head>
   <body class="bg-dark text-gray-100">
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+      <div class="loader-circle"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+      <i class="fas fa-moon"></i>
+    </div>
+
     <!-- Header & Navigation -->
-    <header class="bg-dark-light shadow-lg fixed w-full z-50">
+    <header
+      class="bg-dark-light shadow-lg fixed w-full z-50 transition-all duration-300"
+      id="navbar"
+    >
       <nav
         class="container mx-auto px-4 py-4 flex justify-between items-center"
       >
-        <a href="#" class="text-2xl font-bold text-secondary">WarKoBeng</a>
+        <a href="#" class="text-2xl font-bold text-secondary flex items-center">
+          <i class="fas fa-coffee mr-2"></i>
+          WarKoBeng
+        </a>
         <div class="md:hidden">
           <!-- Mobile menu button -->
           <button
             id="mobile-menu-button"
             class="text-gray-100 focus:outline-none"
           >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
+            <i class="fas fa-bars text-xl"></i>
           </button>
         </div>
         <ul id="main-nav" class="hidden md:flex space-x-6">
           <li>
             <a
               href="#about"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Tentang Kami</a
             >
           </li>
           <li>
             <a
               href="#menu"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Menu</a
             >
           </li>
           <li>
             <a
               href="#services"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Layanan Bengkel</a
             >
           </li>
           <li>
             <a
               href="#gallery"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Galeri</a
             >
           </li>
           <li>
             <a
               href="#location"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Lokasi</a
             >
           </li>
           <li>
             <a
               href="#saran"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Saran</a
             >
           </li>
           <li>
             <a
               href="#kontak"
-              class="hover:text-secondary transition-colors duration-300"
+              class="nav-link hover:text-secondary transition-colors duration-300"
               >Kontak</a
             >
           </li>
@@ -199,267 +512,461 @@
     <section
       class="hero-section min-h-screen flex items-center justify-center text-center text-white"
     >
-      <div class="overlay absolute inset-0"></div>
-      <div class="relative z-10 p-4">
+      <div class="container mx-auto px-4 relative z-10">
         <h1
-          class="text-6xl md:text-8xl font-extrabold text-secondary drop-shadow-lg animate-pulse"
+          class="text-5xl md:text-8xl font-bold mb-4 animate-float"
+          data-aos="fade-down"
+          data-aos-duration="1000"
         >
-          WarKoBeng
+          <span class="text-secondary">WarKoBeng</span>
         </h1>
-        <p class="mt-4 text-xl md:text-3xl font-light italic drop-shadow-md">
+        <p
+          class="text-xl md:text-3xl font-light mb-8 max-w-2xl mx-auto"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="300"
+        >
           Nongkrong, Ngopi, Ngobrol, Karaoke dan Bengkel Motor
         </p>
-        <a
-          href="#about"
-          class="mt-8 inline-block px-8 py-3 bg-secondary text-white text-lg font-semibold rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300 transform hover:scale-105"
+        <div
+          class="flex flex-col sm:flex-row justify-center gap-4"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="600"
         >
-          Jelajahi Sekarang
+          <a
+            href="#menu"
+            class="btn-primary px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fas fa-utensils mr-2"></i> Lihat Menu
+          </a>
+          <a
+            href="#services"
+            class="px-8 py-3 bg-transparent border-2 border-secondary text-secondary text-lg font-semibold rounded-full shadow-lg hover:bg-secondary hover:text-white transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fas fa-wrench mr-2"></i> Layanan Bengkel
+          </a>
+        </div>
+      </div>
+      <div
+        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+      >
+        <a href="#about" class="text-white">
+          <i class="fas fa-chevron-down text-2xl"></i>
         </a>
       </div>
     </section>
 
     <!-- About Us Section -->
-    <section id="about" class="py-16 bg-dark-light">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="section-title text-4xl font-bold mb-8 text-white">
-          Tentang Kami
-        </h2>
-        <div class="max-w-4xl mx-auto text-lg text-gray-300 space-y-4">
-          <p>
-            WarKoBeng (Warung Kopi Bengkel) adalah destinasi unik yang
-            menggabungkan dua dunia: kehangatan kedai kopi modern dari semua
-            kalangan dan keandalan bengkel motor. Kami percaya bahwa perawatan
-            motor dan menikmati secangkir kopi berkualitas dapat berjalan
-            beriringan.
-          </p>
-          <p>
-            Didirikan dengan hasrat untuk Kopi dan Motor, kami menyediakan
-            tempat bagi para pengendara untuk bersantai, bertukar cerita,
-            bersenandung lirih diiringi dengan alunan musik dan memastikan motor mereka
-            dalam kondisi prima. Kami adalah rumah kedua bagi komunitas motor.
-          </p>
+    <section id="about" class="py-20 bg-dark-light">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2
+            class="section-title text-4xl font-bold mb-8 text-white"
+            data-aos="fade-up"
+          >
+            Tentang Kami
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div data-aos="fade-right" data-aos-delay="200">
+              <img
+                src="https://images.unsplash.com/photo-1559925393-8be4ec4867c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="WarKoBeng"
+                class="rounded-xl shadow-xl"
+              />
+            </div>
+            <div class="text-left" data-aos="fade-left" data-aos-delay="400">
+              <p class="text-lg text-gray-300 mb-4">
+                WarKoBeng (Warung Kopi Bengkel) adalah destinasi unik yang
+                menggabungkan dua dunia: kehangatan kedai kopi modern dari semua
+                kalangan dan keandalan bengkel motor.
+              </p>
+              <p class="text-lg text-gray-300 mb-4">
+                Didirikan dengan hasrat untuk Kopi dan Motor, kami menyediakan
+                tempat bagi para pengendara untuk bersantai, bertukar cerita,
+                bersenandung lirih diiringi dengan alunan musik dan memastikan
+                motor mereka dalam kondisi prima.
+              </p>
+              <div class="flex items-center mt-6">
+                <div class="mr-4">
+                  <div
+                    class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center"
+                  >
+                    <i class="fas fa-coffee text-2xl text-white"></i>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-white">
+                    Kualitas Terbaik
+                  </h3>
+                  <p class="text-gray-400">
+                    Kopi premium dan layanan bengkel profesional
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-16">
+    <section id="menu" class="py-20">
       <div class="container mx-auto px-4">
         <h2
-          class="section-title text-4xl font-bold text-white mb-8 text-center"
+          class="section-title text-4xl font-bold mb-12 text-white text-center"
+          data-aos="fade-up"
         >
           Menu Pilihan
         </h2>
+        <div
+          class="flex justify-center mb-8"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="inline-flex rounded-md shadow-sm" role="group">
+            <button
+              type="button"
+              class="menu-filter-btn px-4 py-2 text-sm font-medium text-white bg-secondary rounded-l-lg hover:bg-opacity-90 focus:z-10 focus:ring-2 focus:ring-secondary"
+            >
+              Semua
+            </button>
+            <button
+              type="button"
+              class="menu-filter-btn px-4 py-2 text-sm font-medium text-white bg-dark hover:bg-dark-light focus:z-10 focus:ring-2 focus:ring-secondary"
+            >
+              Minuman
+            </button>
+            <button
+              type="button"
+              class="menu-filter-btn px-4 py-2 text-sm font-medium text-white bg-dark hover:bg-dark-light focus:z-10 focus:ring-2 focus:ring-secondary rounded-r-md"
+            >
+              Makanan
+            </button>
+          </div>
+        </div>
         <div
           id="menu-container"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <!-- Menu Item 1 -->
           <div
-            class="bg-dark-light p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 relative group"
+            class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-aos="fade-up"
+            data-aos-delay="100"
           >
-            <img
-              id="menu-image-1"
-              src="Kopi Hitam.jpg"
-              alt="Kopi Hitam"
-              class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            />
-            <div
-              class="absolute inset-0 rounded-xl bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-menu-1"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-menu-1"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="flex justify-center">
+              <img
+                src="Kopi.jpg"
+                alt="Kopi Hitam"
+                class="w-32 h-32 rounded-full object-cover mb-4"
+              />
             </div>
-            <h3 class="text-2xl font-semibold text-secondary mb-2 mt-4">
+            <h3 class="text-2xl font-semibold text-secondary mb-2 text-center">
               Kopi Hitam WarKoBeng
             </h3>
-            <p class="text-gray-300">
+            <p class="text-gray-300 text-center mb-4">
               Biji kopi pilihan dengan rasa otentik yang kuat.
             </p>
-            <span class="block mt-4 text-xl font-bold text-white"
-              >Rp 15.000</span
-            >
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-bold text-white">Rp 15.000</span>
+              <button
+                class="px-4 py-2 bg-secondary text-white rounded-full text-sm hover:bg-orange-600 transition-colors duration-300"
+              >
+                <i class="fas fa-plus mr-1"></i> Pesan
+              </button>
+            </div>
           </div>
+
           <!-- Menu Item 2 -->
           <div
-            class="bg-dark-light p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 relative group"
+            class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-aos="fade-up"
+            data-aos-delay="200"
           >
-            <img
-              id="menu-image-2"
-              src="Teh_Tarik.png"
-              alt="Teh Tarik"
-              class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            />
-            <div
-              class="absolute inset-0 rounded-xl bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-menu-2"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-menu-2"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="flex justify-center">
+              <img
+                src="Teh_Tarik.png"
+                alt="Teh Tarik"
+                class="w-32 h-32 rounded-full object-cover mb-4"
+              />
             </div>
-            <h3 class="text-2xl font-semibold text-secondary mb-2 mt-4">
+            <h3 class="text-2xl font-semibold text-secondary mb-2 text-center">
               Teh Tarik WarKoBeng
             </h3>
-            <p class="text-gray-300">
+            <p class="text-gray-300 text-center mb-4">
               Manis dan creamy, cocok untuk menemani cerita.
             </p>
-            <span class="block mt-4 text-xl font-bold text-white"
-              >Rp 12.000</span
-            >
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-bold text-white">Rp 12.000</span>
+              <button
+                class="px-4 py-2 bg-secondary text-white rounded-full text-sm hover:bg-orange-600 transition-colors duration-300"
+              >
+                <i class="fas fa-plus mr-1"></i> Pesan
+              </button>
+            </div>
           </div>
+
           <!-- Menu Item 3 -->
           <div
-            class="bg-dark-light p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 relative group"
+            class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-aos="fade-up"
+            data-aos-delay="300"
           >
-            <img
-              id="menu-image-3"
-              src="Nasi_Goreng.png"
-              alt="Nasi Goreng"
-              class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            />
-            <div
-              class="absolute inset-0 rounded-xl bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-menu-3"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-menu-3"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="flex justify-center">
+              <img
+                src="Nasi_Goreng.png"
+                alt="Nasi Goreng"
+                class="w-32 h-32 rounded-full object-cover mb-4"
+              />
             </div>
-            <h3 class="text-2xl font-semibold text-secondary mb-2 mt-4">
+            <h3 class="text-2xl font-semibold text-secondary mb-2 text-center">
               Nasi Goreng WarKoBeng
             </h3>
-            <p class="text-gray-300">
+            <p class="text-gray-300 text-center mb-4">
               Menu andalan dengan bumbu rahasia yang menggugah selera.
             </p>
-            <span class="block mt-4 text-xl font-bold text-white"
-              >Rp 25.000</span
-            >
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-bold text-white">Rp 25.000</span>
+              <button
+                class="px-4 py-2 bg-secondary text-white rounded-full text-sm hover:bg-orange-600 transition-colors duration-300"
+              >
+                <i class="fas fa-plus mr-1"></i> Pesan
+              </button>
+            </div>
           </div>
+
           <!-- Menu Item 4 -->
           <div
-            class="bg-dark-light p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 relative group"
+            class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-aos="fade-up"
+            data-aos-delay="400"
           >
-            <img
-              id="menu-image-4"
-              src="Nasi Rawon.png"
-              alt="Nasi Goreng"
-              class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            />
-            <div
-              class="absolute inset-0 rounded-xl bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-menu-4"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-menu-4"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="flex justify-center">
+              <img
+                src="Nasi Rawon.png"
+                alt="Nasi Rawon"
+                class="w-32 h-32 rounded-full object-cover mb-4"
+              />
             </div>
-            <h3 class="text-2xl font-semibold text-secondary mb-2 mt-4">
+            <h3 class="text-2xl font-semibold text-secondary mb-2 text-center">
               Nasi Rawon WarKoBeng
             </h3>
-            <p class="text-gray-300">
-              Menu andalan khas Surabaya dengan bumbu rahasia dan potongan daging sapi yang menggugah selera.
+            <p class="text-gray-300 text-center mb-4">
+              Menu andalan khas Surabaya dengan bumbu rahasia dan potongan
+              daging sapi yang menggugah selera.
             </p>
-            <span class="block mt-4 text-xl font-bold text-white"
-              >Rp 30.000</span
-            >
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-bold text-white">Rp 30.000</span>
+              <button
+                class="px-4 py-2 bg-secondary text-white rounded-full text-sm hover:bg-orange-600 transition-colors duration-300"
+              >
+                <i class="fas fa-plus mr-1"></i> Pesan
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Workshop Services Section -->
-    <section id="services" class="py-16 bg-dark-light">
+    <section id="services" class="py-20 bg-dark-light">
       <div class="container mx-auto px-4">
         <h2
-          class="section-title text-4xl font-bold text-white mb-8 text-center"
+          class="section-title text-4xl font-bold mb-12 text-white text-center"
+          data-aos="fade-up"
         >
           Layanan Bengkel
         </h2>
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center"
-        >
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Service Item 1 -->
           <div
-            class="p-6 bg-dark rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105"
+            class="bg-dark p-8 rounded-xl shadow-lg card-hover text-center"
+            data-aos="fade-up"
+            data-aos-delay="100"
           >
-            <div class="text-primary mb-4 text-6xl">🔧</div>
-            <h3 class="text-2xl font-semibold text-white mb-2">
+            <div
+              class="w-20 h-20 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-wrench text-3xl text-secondary"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-4">
               Service Rutin
             </h3>
-            <p class="text-gray-300">
+            <p class="text-gray-300 mb-6">
               Pastikan motor Anda selalu dalam kondisi prima dengan service
               rutin kami.
             </p>
+            <a
+              href="#"
+              class="text-secondary font-medium hover:text-orange-600 transition-colors duration-300"
+            >
+              Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
+            </a>
           </div>
+
           <!-- Service Item 2 -->
           <div
-            class="p-6 bg-dark rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105"
+            class="bg-dark p-8 rounded-xl shadow-lg card-hover text-center"
+            data-aos="fade-up"
+            data-aos-delay="200"
           >
-            <div class="text-primary mb-4 text-6xl">⚙️</div>
-            <h3 class="text-2xl font-semibold text-white mb-2">
+            <div
+              class="w-20 h-20 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-cogs text-3xl text-secondary"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-4">
               Tune-Up Mesin
             </h3>
-            <p class="text-gray-300">
+            <p class="text-gray-300 mb-6">
               Peningkatan performa mesin untuk pengalaman berkendara yang lebih
               baik.
             </p>
+            <a
+              href="#"
+              class="text-secondary font-medium hover:text-orange-600 transition-colors duration-300"
+            >
+              Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
+            </a>
           </div>
+
           <!-- Service Item 3 -->
           <div
-            class="p-6 bg-dark rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105"
+            class="bg-dark p-8 rounded-xl shadow-lg card-hover text-center"
+            data-aos="fade-up"
+            data-aos-delay="300"
           >
-            <div class="text-primary mb-4 text-6xl">🛠️</div>
-            <h3 class="text-2xl font-semibold text-white mb-2">
+            <div
+              class="w-20 h-20 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-oil-can text-3xl text-secondary"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-4">
               Ganti Oli & Ban
             </h3>
-            <p class="text-gray-300">
+            <p class="text-gray-300 mb-6">
               Layanan cepat dan terpercaya untuk ganti oli dan ban.
             </p>
+            <a
+              href="#"
+              class="text-secondary font-medium hover:text-orange-600 transition-colors duration-300"
+            >
+              Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+
+          <!-- Service Item 4 - Motor Custom -->
+          <div
+            class="bg-dark p-8 rounded-xl shadow-lg card-hover text-center"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div
+              class="w-20 h-20 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-motorcycle text-3xl text-secondary"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-4">
+              Motor Customs
+            </h3>
+            <p class="text-gray-300 mb-6">
+              Ubah tampilan motor sesuai keinginan Anda dengan layanan custom
+              kami.
+            </p>
+            <a
+              href="#"
+              class="text-secondary font-medium hover:text-orange-600 transition-colors duration-300"
+            >
+              Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+
+          <!-- Service Item 5 - Cat Motor -->
+          <div
+            class="bg-dark p-8 rounded-xl shadow-lg card-hover text-center"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <div
+              class="w-20 h-20 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-paint-roller text-3xl text-secondary"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-4">Cat Motor</h3>
+            <p class="text-gray-300 mb-6">
+              Layanan pengecatan motor dengan berbagai pilihan warna dan
+              finishing berkualitas.
+            </p>
+            <a
+              href="#"
+              class="text-secondary font-medium hover:text-orange-600 transition-colors duration-300"
+            >
+              Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+
+          <!-- Service Item 6 - Spare Part -->
+          <div
+            class="bg-dark p-8 rounded-xl shadow-lg card-hover text-center"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            <div
+              class="w-20 h-20 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <i class="fas fa-tools text-3xl text-secondary"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-white mb-4">Spare Parts</h3>
+            <p class="text-gray-300 mb-6">
+              Menyediakan berbagai spare part motor berkualitas dengan harga
+              terjangkau.
+            </p>
+            <a
+              href="#"
+              class="text-secondary font-medium hover:text-orange-600 transition-colors duration-300"
+            >
+              Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="700">
+          <div class="bg-dark p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
+            <h3 class="text-2xl font-semibold text-white mb-4">
+              Jam Operasional Bengkel
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-lg font-medium text-secondary mb-2">
+                  Senin - Jumat
+                </h4>
+                <p class="text-gray-300">08:00 - 17:00</p>
+              </div>
+              <div>
+                <h4 class="text-lg font-medium text-secondary mb-2">
+                  Sabtu - Minggu
+                </h4>
+                <p class="text-gray-300">08:00 - 15:00</p>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/628561047000"
+              class="mt-6 inline-block px-6 py-3 bg-secondary text-white font-semibold rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300 transform hover:scale-105"
+            >
+              <i class="fas fa-calendar-alt mr-2"></i> Booking Sekarang
+            </a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-16">
+    <section id="gallery" class="py-20">
       <div class="container mx-auto px-4">
         <h2
-          class="section-title text-4xl font-bold text-white mb-8 text-center"
+          class="section-title text-4xl font-bold mb-12 text-white text-center"
+          data-aos="fade-up"
         >
           Galeri
         </h2>
@@ -468,158 +975,110 @@
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <!-- Gallery Item 1 -->
-          <div class="relative overflow-hidden rounded-xl shadow-lg group">
+          <div
+            class="gallery-item rounded-xl overflow-hidden shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             <img
-              id="gallery-image-1"
-              src="Kopi Hitam.jpg"
+              src="https://images.unsplash.com/photo-1559925393-8be4ec4867c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt="Minuman kopi panas"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              class="w-full h-64 object-cover"
             />
-            <div
-              class="absolute inset-0 bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-1"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-1"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="gallery-overlay">
+              <div class="gallery-icon text-white text-2xl">
+                <i class="fas fa-search-plus"></i>
+              </div>
             </div>
           </div>
 
           <!-- Gallery Item 2 -->
-          <div class="relative overflow-hidden rounded-xl shadow-lg group">
+          <div
+            class="gallery-item rounded-xl overflow-hidden shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <img
-              id="gallery-image-2"
-              src="KoBeng.png"
+              src="https://images.unsplash.com/photo-1521017432531-949675440676?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
               alt="Suasana WarKoBeng - Interior Kafe"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              class="w-full h-64 object-cover"
             />
-            <div
-              class="absolute inset-0 bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-2"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-2"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="gallery-overlay">
+              <div class="gallery-icon text-white text-2xl">
+                <i class="fas fa-search-plus"></i>
+              </div>
             </div>
           </div>
 
           <!-- Gallery Item 3 -->
-          <div class="relative overflow-hidden rounded-xl shadow-lg group">
+          <div
+            class="gallery-item rounded-xl overflow-hidden shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <img
-              id="gallery-image-3"
-              src="Suasana_Cafe.png"
+              src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
               alt="Cangkir kopi di atas meja kayu"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              class="w-full h-64 object-cover"
             />
-            <div
-              class="absolute inset-0 bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-3"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-3"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="gallery-overlay">
+              <div class="gallery-icon text-white text-2xl">
+                <i class="fas fa-search-plus"></i>
+              </div>
             </div>
           </div>
 
           <!-- Gallery Item 4 -->
-          <div class="relative overflow-hidden rounded-xl shadow-lg group">
+          <div
+            class="gallery-item rounded-xl overflow-hidden shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
             <img
-              id="gallery-image-4"
-              src="https://placehold.co/800x600/374151/e5e7eb?text=Bengkel+Motor"
+              src="https://images.unsplash.com/photo-1558618666-fcd23eeb41f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
               alt="Motor klasik di bengkel"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              class="w-full h-64 object-cover"
             />
-            <div
-              class="absolute inset-0 bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-4"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-4"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="gallery-overlay">
+              <div class="gallery-icon text-white text-2xl">
+                <i class="fas fa-search-plus"></i>
+              </div>
             </div>
           </div>
 
           <!-- Gallery Item 5 -->
-          <div class="relative overflow-hidden rounded-xl shadow-lg group">
+          <div
+            class="gallery-item rounded-xl overflow-hidden shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
             <img
-              id="gallery-image-5"
-              src="https://placehold.co/800x600/374151/e5e7eb?text=Servis+Pelanggan"
+              src="https://images.unsplash.com/photo-1580273916550-e3bdbeff384d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
               alt="Motor pelanggan sedang diservis"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              class="w-full h-64 object-cover"
             />
-            <div
-              class="absolute inset-0 bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-5"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-5"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="gallery-overlay">
+              <div class="gallery-icon text-white text-2xl">
+                <i class="fas fa-search-plus"></i>
+              </div>
             </div>
           </div>
 
           <!-- Gallery Item 6 -->
-          <div class="relative overflow-hidden rounded-xl shadow-lg group">
+          <div
+            class="gallery-item rounded-xl overflow-hidden shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
             <img
-              id="gallery-image-6"
-              src="https://placehold.co/800x600/374151/e5e7eb?text=Proses+Servis"
+              src="https://images.unsplash.com/photo-1592198084033-6eaa3e75d9ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
               alt="Proses servis mesin motor"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              class="w-full h-64 object-cover"
             />
-            <div
-              class="absolute inset-0 bg-dark-light bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              <!--<label
-                for="file-upload-6"
-                class="cursor-pointer bg-secondary text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-orange-600 transition-colors duration-300"
-              >
-                Ganti Foto
-              </label>
-              <input
-                id="file-upload-6"
-                type="file"
-                class="hidden"
-                accept="image/*"
-              />-->
+            <div class="gallery-overlay">
+              <div class="gallery-icon text-white text-2xl">
+                <i class="fas fa-search-plus"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -627,14 +1086,19 @@
     </section>
 
     <!-- Location Section -->
-    <section id="location" class="py-16 bg-dark-light">
+    <section id="location" class="py-20 bg-dark-light">
       <div class="container mx-auto px-4">
         <h2
-          class="section-title text-4xl font-bold text-white mb-8 text-center"
+          class="section-title text-4xl font-bold mb-12 text-white text-center"
+          data-aos="fade-up"
         >
           Temukan Kami
         </h2>
-        <div class="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
+        <div
+          class="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <iframe
             class="w-full h-96"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.983491822095!2d107.46227767603943!3d-6.3961285625606585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69730031f902d3%3A0xe87674e7e36adbe!2sKopi%20Bengkel%20Cikampek!5e0!3m2!1sid!2sid!4v1755143592072!5m2!1sid!2sid"
@@ -643,181 +1107,454 @@
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
+
+        <div
+          class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <div class="bg-dark p-6 rounded-xl shadow-lg text-center">
+            <div
+              class="w-16 h-16 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <i class="fas fa-map-marker-alt text-2xl text-secondary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">Alamat</h3>
+            <p class="text-gray-300">
+              Jalan Sukamanah No 1 Cikampek Utara, Karawang-Jawa Barat
+            </p>
+          </div>
+
+          <div class="bg-dark p-6 rounded-xl shadow-lg text-center">
+            <div
+              class="w-16 h-16 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <i class="fas fa-clock text-2xl text-secondary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">Jam Buka</h3>
+            <p class="text-gray-300">Setiap Hari: 16:00 - 24:00</p>
+          </div>
+
+          <div class="bg-dark p-6 rounded-xl shadow-lg text-center">
+            <div
+              class="w-16 h-16 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <i class="fas fa-phone text-2xl text-secondary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">Kontak</h3>
+            <p class="text-gray-300">0896-3010-7261</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Suggestion Section -->
-    <section id="saran" class="py-16 bg-dark">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="section-title text-4xl font-bold text-white mb-8">
+    <section id="saran" class="py-20 bg-dark">
+      <div class="container mx-auto px-4">
+        <h2
+          class="section-title text-4xl font-bold mb-4 text-white text-center"
+          data-aos="fade-up"
+        >
           Berikan Saran Anda
         </h2>
-        <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+        <p
+          class="text-gray-300 mb-12 max-w-2xl mx-auto text-center"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           Masukan Anda sangat berharga bagi kami. Isi formulir di bawah ini
           untuk mengirimkan saran, kritik, atau pertanyaan.
         </p>
 
-        <form
-          action="mailto:wtntstoreid@gmail.com"
-          method="post"
-          enctype="text/plain"
-          class="max-w-lg mx-auto space-y-4"
+        <div
+          class="max-w-2xl mx-auto bg-dark-light p-8 rounded-xl shadow-xl"
+          data-aos="fade-up"
+          data-aos-delay="400"
         >
-          <div>
-            <label for="name" class="block text-left mb-1 text-gray-200"
-              >Nama Lengkap</label
-            >
-            <input
-              type="text"
-              id="name"
-              name="Nama"
-              placeholder="Masukkan nama Anda"
-              class="w-full px-4 py-3 bg-dark-light border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary transition-colors duration-200 text-white"
-              required
-            />
-          </div>
-          <div>
-            <label for="email" class="block text-left mb-1 text-gray-200"
-              >Alamat Email</label
-            >
-            <input
-              type="email"
-              id="email"
-              name="Email"
-              placeholder="Masukkan alamat email Anda"
-              class="w-full px-4 py-3 bg-dark-light border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary transition-colors duration-200 text-white"
-              required
-            />
-          </div>
-          <div>
-            <label for="phone" class="block text-left mb-1 text-gray-200"
-              >Nomor Telepon</label
-            >
-            <input
-              type="tel"
-              id="phone"
-              name="Nomor Telepon"
-              placeholder="Masukkan nomor telepon Anda"
-              class="w-full px-4 py-3 bg-dark-light border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary transition-colors duration-200 text-white"
-            />
-          </div>
-          <div>
-            <label for="message" class="block text-left mb-1 text-gray-200"
-              >Saran/Pesan Anda</label
-            >
-            <textarea
-              id="message"
-              name="Saran"
-              rows="5"
-              placeholder="Tuliskan saran atau pesan Anda di sini..."
-              class="w-full px-4 py-3 bg-dark-light border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary transition-colors duration-200 text-white"
-              required
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            class="w-full px-6 py-3 bg-secondary text-white font-semibold rounded-lg shadow-lg hover:bg-orange-600 transition-colors duration-300 transform hover:scale-105"
+          <form
+            action="mailto:wtntstoreid@gmail.com"
+            method="post"
+            enctype="text/plain"
+            class="space-y-6"
           >
-            Kirim Saran
-          </button>
-        </form>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block mb-2 text-gray-200"
+                  >Nama Lengkap</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="Nama"
+                  placeholder="Masukkan nama Anda"
+                  class="form-input w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none text-white"
+                  required
+                />
+              </div>
+              <div>
+                <label for="email" class="block mb-2 text-gray-200"
+                  >Alamat Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="Email"
+                  placeholder="Masukkan alamat email Anda"
+                  class="form-input w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none text-white"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="phone" class="block mb-2 text-gray-200"
+                >Nomor Telepon</label
+              >
+              <input
+                type="tel"
+                id="phone"
+                name="Nomor Telepon"
+                placeholder="Masukkan nomor telepon Anda"
+                class="form-input w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none text-white"
+              />
+            </div>
+
+            <div>
+              <label for="message" class="block mb-2 text-gray-200"
+                >Saran/Pesan Anda</label
+              >
+              <textarea
+                id="message"
+                name="Saran"
+                rows="5"
+                placeholder="Tuliskan saran atau pesan Anda di sini..."
+                class="form-input w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none text-white"
+                required
+              ></textarea>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                class="btn-primary px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              >
+                <i class="fas fa-paper-plane mr-2"></i> Kirim Saran
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
-    <!-- New Contact Section -->
-    <section id="kontak" class="py-16 bg-dark-light">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="section-title text-4xl font-bold text-white mb-8">
+    <!-- Contact Section -->
+    <section id="kontak" class="py-20 bg-dark-light">
+      <div class="container mx-auto px-4">
+        <h2
+          class="section-title text-4xl font-bold mb-12 text-white text-center"
+          data-aos="fade-up"
+        >
           Hubungi Kami
         </h2>
-        <div
-          class="flex flex-col sm:flex-row justify-center items-center gap-6"
-        >
-          <!-- Instagram Link -->
-          <a
-            href="https://www.instagram.com/kopibengkel.cikampek?igsh=a2Q1MjdiemFvbm5i"
-            target="_blank"
-            class="p-3 bg-instagram text-white rounded-full shadow-lg hover:bg-pink-700 transition-colors duration-300 transform hover:scale-105"
-          >
-            <!-- Instagram SVG Icon -->
-            <svg
-              class="w-6 h-6"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.27 3.73a1.5 1.5 0 1 1-1.5 1.5 1.5 1.5 0 0 1 1.5-1.5zm-5.77 2.27c-3.13 0-5.7 2.57-5.7 5.7s2.57 5.7 5.7 5.7 5.7-2.57 5.7-5.7-2.57-5.7-5.7-5.7zm0 9.2c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"
-              />
-            </svg>
-          </a>
 
-          <!-- WhatsApp Link -->
-          <a
-            href="https://wa.me/6289630107261"
-            target="_blank"
-            class="p-3 bg-whatsapp text-white rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300 transform hover:scale-105"
+        <div class="max-w-4xl mx-auto">
+          <div
+            class="bg-dark p-8 rounded-xl shadow-xl"
+            data-aos="fade-up"
+            data-aos-delay="200"
           >
-            <!-- WhatsApp SVG Icon -->
-            <svg
-              class="w-6 h-6"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12.04 2C7.398 2 3.657 5.748 3.657 10.39c0 1.834.57 3.541 1.545 4.965L3.3 21.034l5.44-1.423c1.378.75 2.978 1.156 4.195 1.156h.001c4.643 0 8.38-3.748 8.38-8.39C20.417 5.748 16.678 2 12.04 2zm3.627 12.443c-.15.222-.84.512-.99.535-.15.023-.3-.06-.827-.266-.527-.206-1.554-.69-2.96-1.82a10.963 10.963 0 0 1-1.92-2.316c-.2-.352-.023-.54.1-.653.11-.115.243-.244.37-.394.127-.149.172-.25.258-.42.085-.17.042-.317-.023-.448-.06-.13-.538-1.285-.736-1.758-.192-.475-.386-.407-.535-.414-.15-.008-.323-.008-.497-.008-.175 0-.46.06-.707.332-.25.27-.95 1.054-.95 2.585 0 1.53.974 2.996 1.116 3.204.143.208 1.92 3.224 4.793 4.417 2.872 1.192 2.872.795 3.385.748.513-.047 1.637-.667 1.868-1.31.23-.642.23-1.19.166-1.318-.065-.128-.242-.19-.508-.317z"
-              />
-            </svg>
-          </a>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Instagram -->
+              <div class="text-center">
+                <a
+                  href="https://www.instagram.com/kopibengkel.cikampek?igsh=a2Q1MjdiemFvbm5i"
+                  target="_blank"
+                  class="social-icon inline-block w-20 h-20 bg-instagram bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-instagram hover:text-white transition-all duration-300"
+                >
+                  <i class="fab fa-instagram text-3xl"></i>
+                </a>
+                <h3 class="text-xl font-semibold text-white mb-2">Instagram</h3>
+                <p class="text-gray-400 mb-4">@kopibengkel.cikampek</p>
+                <a
+                  href="https://www.instagram.com/kopibengkel.cikampek?igsh=a2Q1MjdiemFvbm5i"
+                  target="_blank"
+                  class="text-secondary hover:text-orange-600 transition-colors duration-300"
+                >
+                  Kunjungi <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+              </div>
 
-          <!-- Email Link -->
-          <a
-            href="mailto:wtntstoreid@gmail.com"
-            target="_blank"
-            class="p-3 bg-email text-white rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 transform hover:scale-105"
+              <!-- WhatsApp -->
+              <div class="text-center">
+                <a
+                  href="https://wa.me/6289630107261"
+                  target="_blank"
+                  class="social-icon inline-block w-20 h-20 bg-whatsapp bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-whatsapp hover:text-white transition-all duration-300"
+                >
+                  <i class="fab fa-whatsapp text-3xl"></i>
+                </a>
+                <h3 class="text-xl font-semibold text-white mb-2">WhatsApp</h3>
+                <p class="text-gray-400 mb-4">0896-3010-7261</p>
+                <a
+                  href="https://wa.me/6289630107261"
+                  target="_blank"
+                  class="text-secondary hover:text-orange-600 transition-colors duration-300"
+                >
+                  Chat <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+
+              <!-- Email -->
+              <div class="text-center">
+                <a
+                  href="mailto:wtntstoreid@gmail.com"
+                  target="_blank"
+                  class="social-icon inline-block w-20 h-20 bg-email bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-email hover:text-white transition-all duration-300"
+                >
+                  <i class="fas fa-envelope text-3xl"></i>
+                </a>
+                <h3 class="text-xl font-semibold text-white mb-2">Email</h3>
+                <p class="text-gray-400 mb-4">wtntstoreid@gmail.com</p>
+                <a
+                  href="mailto:wtntstoreid@gmail.com"
+                  target="_blank"
+                  class="text-secondary hover:text-orange-600 transition-colors duration-300"
+                >
+                  Kirim Email <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolaborasi Section -->
+          <div class="mt-12" data-aos="fade-up" data-aos-delay="400">
+            <h3 class="text-2xl font-semibold text-white mb-6 text-center">
+              Kolaborasi Kami
+            </h3>
+            <div class="bg-dark p-8 rounded-xl shadow-xl">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Kolaborasi Instagram 1 -->
+                <div class="text-center">
+                  <a
+                    href="https://www.instagram.com/antik_108?igsh=eTAyOGVnOTg1eGRp"
+                    target="_blank"
+                    class="social-icon inline-block w-20 h-20 bg-instagram bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-instagram hover:text-white transition-all duration-300"
+                  >
+                    <i class="fab fa-instagram text-3xl"></i>
+                  </a>
+                  <h3 class="text-xl font-semibold text-white mb-2">
+                    @antik_108
+                  </h3>
+                  <p class="text-gray-400 mb-4">
+                    Partner Customs & Modification Specialist
+                  </p>
+                  <a
+                    href="https://www.instagram.com/antik_108?igsh=eTAyOGVnOTg1eGRp"
+                    target="_blank"
+                    class="text-secondary hover:text-orange-600 transition-colors duration-300"
+                  >
+                    Kunjungi <i class="fas fa-arrow-right ml-1"></i>
+                  </a>
+                </div>
+
+                <!-- Kolaborasi Instagram 2 -->
+                <div class="text-center">
+                  <a
+                    href="https://www.instagram.com/bell_aditya?igsh=dnoyMjV1ZXMzdHY="
+                    target="_blank"
+                    class="social-icon inline-block w-20 h-20 bg-instagram bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-instagram hover:text-white transition-all duration-300"
+                  >
+                    <i class="fab fa-instagram text-3xl"></i>
+                  </a>
+                  <h3 class="text-xl font-semibold text-white mb-2">
+                    @bell_aditya
+                  </h3>
+                  <p class="text-gray-400 mb-4">Partner Music Specialist</p>
+                  <a
+                    href="https://www.instagram.com/bell_aditya?igsh=dnoyMjV1ZXMzdHY="
+                    target="_blank"
+                    class="text-secondary hover:text-orange-600 transition-colors duration-300"
+                  >
+                    Kunjungi <i class="fas fa-arrow-right ml-1"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-12 text-center"
+            data-aos="fade-up"
+            data-aos-delay="600"
           >
-            <!-- Email SVG Icon -->
-            <svg
-              class="w-6 h-6"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
+            <h3 class="text-2xl font-semibold text-white mb-4">Newsletter</h3>
+            <p class="text-gray-400 mb-6 max-w-xl mx-auto">
+              Dapatkan informasi terbaru tentang promo dan event dari WarKoBeng
+            </p>
+
+            <form class="max-w-md mx-auto flex">
+              <input
+                type="email"
+                placeholder="Alamat email Anda"
+                class="form-input flex-grow px-4 py-3 bg-dark border border-gray-600 rounded-l-lg focus:outline-none text-white"
               />
-            </svg>
-          </a>
+              <button
+                type="submit"
+                class="px-6 py-3 bg-secondary text-white font-semibold rounded-r-lg hover:bg-orange-600 transition-colors duration-300"
+              >
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-gray-400 py-2">
-      <div class="container mx-auto px-4 text-center">
-        <p>
-          &copy;Copyright 2025 WarKoBeng by WTNT Catering. Hak Cipta
-          Dilindungi.
-        </p>
-        <p class="mt-2 text-sm">
-          Jalan Sukamanah No 1 Cikampek Utara, Karawang-Jawa Barat
-        </p>
+    <footer class="bg-dark text-gray-400 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold text-secondary mb-4">WarKoBeng</h3>
+            <p class="mb-4">
+              Warung Kopi Bengkel yang menggabungkan kenyamanan tempat nongkrong
+              dengan layanan bengkel motor profesional.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-gray-400 hover:text-secondary transition-colors duration-300"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/kopibengkel.cikampek?igsh=a2Q1MjdiemFvbm5i"
+                target="_blank"
+                class="text-gray-400 hover:text-secondary transition-colors duration-300"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="https://wa.me/6289630107261"
+                target="_blank"
+                class="text-gray-400 hover:text-secondary transition-colors duration-300"
+              >
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-4">Menu Cepat</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#about"
+                  class="hover:text-secondary transition-colors duration-300"
+                  >Tentang Kami</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#menu"
+                  class="hover:text-secondary transition-colors duration-300"
+                  >Menu</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="hover:text-secondary transition-colors duration-300"
+                  >Layanan Bengkel</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#gallery"
+                  class="hover:text-secondary transition-colors duration-300"
+                  >Galeri</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-4">
+              Jam Operasional
+            </h4>
+            <ul class="space-y-2">
+              <li class="flex justify-between">
+                <span>Senin - Jumat</span>
+                <span>08:00 - 22:00</span>
+              </li>
+              <li class="flex justify-between">
+                <span>Sabtu - Minggu</span>
+                <span>08:00 - 22:00</span>
+              </li>
+              <li class="flex justify-between">
+                <span>Bengkel</span>
+                <span>08:00 - 17:00</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-4">Kontak</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt mt-1 mr-2 text-secondary"></i>
+                <span
+                  >Jalan Sukamanah No 1 Cikampek Utara, Karawang-Jawa
+                  Barat</span
+                >
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone mr-2 text-secondary"></i>
+                <span>0896-3010-7261</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope mr-2 text-secondary"></i>
+                <span>wtntstoreid@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+          <p>
+            &copy;copyright 2025 WarKoBeng by WTNT Catering. Hak Cipta
+            Dilindungi.
+          </p>
+        </div>
       </div>
     </footer>
 
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+      });
+
+      // Hide loader when page is loaded
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          document.getElementById("loader").classList.add("hidden");
+        }, 500);
+      });
+
       // Smooth scrolling for navigation links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
-          // Get the href attribute
           const href = this.getAttribute("href");
-
-          // Only prevent default and scroll if the href is not just '#'
           if (href && href !== "#") {
             e.preventDefault();
             document.querySelector(href).scrollIntoView({
               behavior: "smooth",
+              block: "start",
             });
           }
         });
@@ -837,49 +1574,127 @@
         });
       });
 
-      // JavaScript untuk menangani unggahan gambar di seluruh galeri dan menu
-      document.addEventListener("DOMContentLoaded", () => {
-        // Get all file input elements within the gallery and menu containers
-        const fileInputs = document.querySelectorAll(
-          '#gallery-container input[type="file"], #menu-container input[type="file"]'
-        );
+      // Back to top button
+      const backToTopButton = document.getElementById("backToTop");
 
-        // Loop through each file input and add an event listener
-        fileInputs.forEach((input) => {
-          input.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-            if (file) {
-              const reader = new FileReader();
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add("active");
+        } else {
+          backToTopButton.classList.remove("active");
+        }
+      });
 
-              // Determine if it's a menu image or a gallery image
-              let imageElement;
-              if (event.target.id.includes("file-upload-menu")) {
-                // Find the corresponding menu image by its ID
-                const imageIndex = event.target.id.split("-")[3]; // e.g., 'file-upload-menu-1' -> '1'
-                imageElement = document.getElementById(
-                  `menu-image-${imageIndex}`
-                );
-              } else {
-                // Find the corresponding gallery image by its ID
-                const imageIndex = event.target.id.split("-")[2]; // e.g., 'file-upload-1' -> '1'
-                imageElement = document.getElementById(
-                  `gallery-image-${imageIndex}`
-                );
-              }
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
 
-              reader.onload = function (e) {
-                if (imageElement) {
-                  // Set the new image source
-                  imageElement.src = e.target.result;
-                }
-              };
-              reader.readAsDataURL(file);
-            }
+      // Dark mode toggle
+      const darkModeToggle = document.getElementById("darkModeToggle");
+      const body = document.body;
+      const darkModeIcon = darkModeToggle.querySelector("i");
+
+      // Check for saved dark mode preference
+      if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark-mode");
+        darkModeIcon.classList.remove("fa-moon");
+        darkModeIcon.classList.add("fa-sun");
+      }
+
+      darkModeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+
+        if (body.classList.contains("dark-mode")) {
+          localStorage.setItem("darkMode", "enabled");
+          darkModeIcon.classList.remove("fa-moon");
+          darkModeIcon.classList.add("fa-sun");
+        } else {
+          localStorage.setItem("darkMode", "disabled");
+          darkModeIcon.classList.remove("fa-sun");
+          darkModeIcon.classList.add("fa-moon");
+        }
+      });
+
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 50) {
+          navbar.classList.add("py-2");
+          navbar.classList.remove("py-4");
+        } else {
+          navbar.classList.add("py-4");
+          navbar.classList.remove("py-2");
+        }
+      });
+
+      // Menu filter
+      const menuFilterBtns = document.querySelectorAll(".menu-filter-btn");
+
+      menuFilterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Remove active class from all buttons
+          menuFilterBtns.forEach((b) => {
+            b.classList.remove("bg-secondary");
+            b.classList.add("bg-dark");
           });
+
+          // Add active class to clicked button
+          btn.classList.remove("bg-dark");
+          btn.classList.add("bg-secondary");
+
+          // Here you would add filter logic for menu items
+          // For demo purposes, we'll just show an alert
+          const filter = btn.textContent.trim();
+          console.log(`Filter clicked: ${filter}`);
+        });
+      });
+
+      // Form submission
+      const forms = document.querySelectorAll("form");
+
+      forms.forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          // For forms that use mailto, we don't prevent default
+          if (!form.action.includes("mailto:")) {
+            e.preventDefault();
+
+            // Show success message
+            const successMessage = document.createElement("div");
+            successMessage.className =
+              "fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50";
+            successMessage.textContent = "Pesan Anda telah terkirim!";
+            document.body.appendChild(successMessage);
+
+            // Remove message after 3 seconds
+            setTimeout(() => {
+              successMessage.remove();
+            }, 3000);
+
+            // Reset form
+            form.reset();
+          }
+        });
+      });
+
+      // Add animation to gallery items on hover
+      const galleryItems = document.querySelectorAll(".gallery-item");
+
+      galleryItems.forEach((item) => {
+        item.addEventListener("mouseenter", () => {
+          const img = item.querySelector("img");
+          img.style.transform = "scale(1.1)";
+          img.style.transition = "transform 0.5s ease";
+        });
+
+        item.addEventListener("mouseleave", () => {
+          const img = item.querySelector("img");
+          img.style.transform = "scale(1)";
         });
       });
     </script>
   </body>
 </html>
-
-
