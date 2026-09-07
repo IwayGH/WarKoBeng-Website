@@ -793,6 +793,8 @@
               >
                 <i class="fas fa-plus mr-1"></i> Pesan
               </button>
+              </div>
+            </div>
           
           <!-- Menu Item 5 -->
           <div
@@ -1652,7 +1654,11 @@
       // Hide loader when page is loaded
       window.addEventListener("load", function () {
         setTimeout(function () {
-          document.getElementById("loader").classList.add("hidden");
+          const loader = document.getElementById("loader");
+
+          if (loader) {
+            loader.classList.add("hidden");
+          }
         }, 500);
       });
 
@@ -1660,22 +1666,34 @@
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           const href = this.getAttribute("href");
+
           if (href && href !== "#") {
             e.preventDefault();
-            document.querySelector(href).scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
+
+            const target = document.querySelector(href);
+
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
           }
         });
       });
 
       // Toggle mobile menu
-      const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
-      mobileMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-      });
+      const mobileMenuButton =
+        document.getElementById("mobile-menu-button");
+
+      const mobileMenu =
+        document.getElementById("mobile-menu");
+
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      }
 
       // Hide mobile menu after clicking a link
       document.querySelectorAll("#mobile-menu a").forEach((link) => {
@@ -1685,7 +1703,8 @@
       });
 
       // Back to top button
-      const backToTopButton = document.getElementById("backToTop");
+      const backToTopButton =
+        document.getElementById("backToTop");
 
       window.addEventListener("scroll", () => {
         if (window.pageYOffset > 300) {
@@ -1703,13 +1722,18 @@
       });
 
       // Dark mode toggle
-      const darkModeToggle = document.getElementById("darkModeToggle");
+      const darkModeToggle =
+        document.getElementById("darkModeToggle");
+
       const body = document.body;
-      const darkModeIcon = darkModeToggle.querySelector("i");
+
+      const darkModeIcon =
+        darkModeToggle.querySelector("i");
 
       // Check for saved dark mode preference
       if (localStorage.getItem("darkMode") === "enabled") {
         body.classList.add("dark-mode");
+
         darkModeIcon.classList.remove("fa-moon");
         darkModeIcon.classList.add("fa-sun");
       }
@@ -1719,10 +1743,12 @@
 
         if (body.classList.contains("dark-mode")) {
           localStorage.setItem("darkMode", "enabled");
+
           darkModeIcon.classList.remove("fa-moon");
           darkModeIcon.classList.add("fa-sun");
         } else {
           localStorage.setItem("darkMode", "disabled");
+
           darkModeIcon.classList.remove("fa-sun");
           darkModeIcon.classList.add("fa-moon");
         }
@@ -1741,96 +1767,108 @@
         }
       });
 
-      // Menu filter
-      const menuFilterBtns = document.querySelectorAll(".menu-filter-btn");
+
+      /* ==========================================
+         MENU FILTER
+         ========================================== */
+
+      const menuFilterBtns =
+        document.querySelectorAll(".menu-filter-btn");
+
+      const menuCards =
+        document.querySelectorAll(".menu-card");
 
       menuFilterBtns.forEach((btn) => {
+
         btn.addEventListener("click", () => {
-          // Remove active class from all buttons
+
+          const selectedCategory =
+            btn.getAttribute("data-filter");
+
+          // Update button
           menuFilterBtns.forEach((b) => {
-            b.classList.remove("bg-secondary");
-            b.classList.add("bg-dark");
+
+            b.classList.remove(
+              "bg-secondary",
+              "text-white"
+            );
+
+            b.classList.add(
+              "bg-dark",
+              "text-gray-300"
+            );
+
           });
 
-          // Add active class to clicked button
-          btn.classList.remove("bg-dark");
-          btn.classList.add("bg-secondary");
+          btn.classList.remove(
+            "bg-dark",
+            "text-gray-300"
+          );
 
-          // Here you would add filter logic for menu items
-          // For demo purposes, we'll just show an alert
-          const filter = btn.textContent.trim();
-          console.log(`Filter clicked: ${filter}`);
-        });
-      });
+          btn.classList.add(
+            "bg-secondary",
+            "text-white"
+          );
 
-<script>
-  // Additional Menu Category Filter
-  document.addEventListener("DOMContentLoaded", function () {
 
-    const filterButtons = document.querySelectorAll(".menu-filter-btn");
-    const menuCards = document.querySelectorAll(".menu-card");
+          // Filter menu
+          menuCards.forEach((card) => {
 
-    filterButtons.forEach(button => {
+            const category =
+              card.getAttribute("data-category");
 
-      button.addEventListener("click", function () {
+            if (
+              selectedCategory === "all" ||
+              category === selectedCategory
+            ) {
 
-        const selectedCategory = this.getAttribute("data-filter");
+              card.style.display = "";
 
-        // Update button appearance
-        filterButtons.forEach(btn => {
-          btn.classList.remove("bg-secondary", "text-white");
-          btn.classList.add("bg-dark", "text-gray-300");
-        });
+            } else {
 
-        this.classList.remove("bg-dark", "text-gray-300");
-        this.classList.add("bg-secondary", "text-white");
+              card.style.display = "none";
 
-        // Filter menu cards
-        menuCards.forEach(card => {
+            }
 
-          const cardCategory = card.getAttribute("data-category");
+          });
 
-          if (
-            selectedCategory === "all" ||
-            cardCategory === selectedCategory
-          ) {
-            card.style.display = "";
-            
-            // Re-trigger AOS animation
-            card.classList.remove("aos-animate");
-
+          // Refresh AOS
+          if (typeof AOS !== "undefined") {
             setTimeout(() => {
-              card.classList.add("aos-animate");
-            }, 50);
-
-          } else {
-            card.style.display = "none";
+              AOS.refresh();
+            }, 100);
           }
 
         });
 
       });
 
-    });
 
-  });
-</script>
-      
       // Form submission
       const forms = document.querySelectorAll("form");
 
       forms.forEach((form) => {
+
         form.addEventListener("submit", (e) => {
+
           // For forms that use mailto, we don't prevent default
           if (!form.action.includes("mailto:")) {
+
             e.preventDefault();
 
             // Show success message
-            const successMessage = document.createElement("div");
+            const successMessage =
+              document.createElement("div");
+
             successMessage.className =
               "fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50";
-            successMessage.textContent = "Pesan Anda telah terkirim!";
-            document.body.appendChild(successMessage);
+
+            successMessage.textContent =
+              "Pesan Anda telah terkirim!";
+
+            document.body.appendChild(
+              successMessage
+            );
 
             // Remove message after 3 seconds
             setTimeout(() => {
@@ -1840,24 +1878,38 @@
             // Reset form
             form.reset();
           }
+
         });
+
       });
 
+
       // Add animation to gallery items on hover
-      const galleryItems = document.querySelectorAll(".gallery-item");
+      const galleryItems =
+        document.querySelectorAll(".gallery-item");
 
       galleryItems.forEach((item) => {
+
         item.addEventListener("mouseenter", () => {
+
           const img = item.querySelector("img");
+
           img.style.transform = "scale(1.1)";
-          img.style.transition = "transform 0.5s ease";
+          img.style.transition =
+            "transform 0.5s ease";
+
         });
 
         item.addEventListener("mouseleave", () => {
+
           const img = item.querySelector("img");
+
           img.style.transform = "scale(1)";
+
         });
+
       });
+
     </script>
   </body>
 </html>
