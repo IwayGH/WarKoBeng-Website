@@ -626,27 +626,47 @@
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <div class="inline-flex rounded-md shadow-sm" role="group">
-            <button
-              type="button"
-              class="menu-filter-btn px-4 py-2 text-sm font-medium text-white bg-secondary rounded-l-lg hover:bg-opacity-90 focus:z-10 focus:ring-2 focus:ring-secondary"
-            >
-              Semua
-            </button>
-            <button
-              type="button"
-              class="menu-filter-btn px-4 py-2 text-sm font-medium text-white bg-dark hover:bg-dark-light focus:z-10 focus:ring-2 focus:ring-secondary"
-            >
-              Minuman
-            </button>
-            <button
-              type="button"
-              class="menu-filter-btn px-4 py-2 text-sm font-medium text-white bg-dark hover:bg-dark-light focus:z-10 focus:ring-2 focus:ring-secondary rounded-r-md"
-            >
-              Makanan
-            </button>
-          </div>
-        </div>
+<div class="flex justify-center mb-8">
+  <div class="flex flex-wrap justify-center gap-2" role="group">
+
+    <button
+      class="menu-filter-btn px-5 py-2 rounded-lg bg-secondary text-white transition-all duration-300 hover:bg-orange-600"
+      data-filter="all">
+      Semua
+    </button>
+
+    <button
+      class="menu-filter-btn px-5 py-2 rounded-lg bg-dark text-gray-300 transition-all duration-300 hover:bg-secondary hover:text-white"
+      data-filter="minuman">
+      Minuman
+    </button>
+
+    <button
+      class="menu-filter-btn px-5 py-2 rounded-lg bg-dark text-gray-300 transition-all duration-300 hover:bg-secondary hover:text-white"
+      data-filter="makanan">
+      Makanan
+    </button>
+
+    <button
+      class="menu-filter-btn px-5 py-2 rounded-lg bg-dark text-gray-300 transition-all duration-300 hover:bg-secondary hover:text-white"
+      data-filter="snack">
+      Snack
+    </button>
+
+    <button
+      class="menu-filter-btn px-5 py-2 rounded-lg bg-dark text-gray-300 transition-all duration-300 hover:bg-secondary hover:text-white"
+      data-filter="signature">
+      Signature
+    </button>
+
+    <button
+      class="menu-filter-btn px-5 py-2 rounded-lg bg-dark text-gray-300 transition-all duration-300 hover:bg-secondary hover:text-white"
+      data-filter="paket">
+      Paket Hemat
+    </button>
+
+  </div>
+</div>
         <div
           id="menu-container"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -654,6 +674,7 @@
           <!-- Menu Item 1 -->
           <div
             class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-category="minuman"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -684,6 +705,7 @@
           <!-- Menu Item 2 -->
           <div
             class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-category="minuman"
             data-aos="fade-up"
             data-aos-delay="200"
           >
@@ -714,6 +736,7 @@
           <!-- Menu Item 3 -->
           <div
             class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-category="makanan"
             data-aos="fade-up"
             data-aos-delay="300"
           >
@@ -744,6 +767,7 @@
           <!-- Menu Item 4 -->
           <div
             class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-category="makanan"
             data-aos="fade-up"
             data-aos-delay="400"
           >
@@ -763,6 +787,35 @@
             </p>
             <div class="flex justify-between items-center">
               <span class="text-xl font-bold text-white">Rp 30.000</span>
+              <button
+                class="px-4 py-2 bg-secondary text-white rounded-full text-sm hover:bg-orange-600 transition-colors duration-300"
+                hidden
+              >
+                <i class="fas fa-plus mr-1"></i> Pesan
+              </button>
+          
+          <!-- Menu Item 5 -->
+          <div
+            class="menu-card bg-dark-light p-6 rounded-xl shadow-lg card-hover"
+            data-category="snack"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="flex justify-center">
+              <img
+                src="Pisang Goreng.png"
+                alt="Pisang Goreng"
+                class="w-32 h-32 rounded-full object-cover mb-4"
+              />
+            </div>
+            <h3 class="text-2xl font-semibold text-secondary mb-2 text-center">
+              Pisang Goreng WarKoBeng
+            </h3>
+            <p class="text-gray-300 text-center mb-4">
+              Pisang goreng hangat yang cocok untuk teman ngopi dan ngobrol.
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-bold text-white">Rp 10.000</span>
               <button
                 class="px-4 py-2 bg-secondary text-white rounded-full text-sm hover:bg-orange-600 transition-colors duration-300"
                 hidden
@@ -1710,6 +1763,59 @@
         });
       });
 
+<script>
+  // Additional Menu Category Filter
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const filterButtons = document.querySelectorAll(".menu-filter-btn");
+    const menuCards = document.querySelectorAll(".menu-card");
+
+    filterButtons.forEach(button => {
+
+      button.addEventListener("click", function () {
+
+        const selectedCategory = this.getAttribute("data-filter");
+
+        // Update button appearance
+        filterButtons.forEach(btn => {
+          btn.classList.remove("bg-secondary", "text-white");
+          btn.classList.add("bg-dark", "text-gray-300");
+        });
+
+        this.classList.remove("bg-dark", "text-gray-300");
+        this.classList.add("bg-secondary", "text-white");
+
+        // Filter menu cards
+        menuCards.forEach(card => {
+
+          const cardCategory = card.getAttribute("data-category");
+
+          if (
+            selectedCategory === "all" ||
+            cardCategory === selectedCategory
+          ) {
+            card.style.display = "";
+            
+            // Re-trigger AOS animation
+            card.classList.remove("aos-animate");
+
+            setTimeout(() => {
+              card.classList.add("aos-animate");
+            }, 50);
+
+          } else {
+            card.style.display = "none";
+          }
+
+        });
+
+      });
+
+    });
+
+  });
+</script>
+      
       // Form submission
       const forms = document.querySelectorAll("form");
 
